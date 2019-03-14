@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.SearchFragment">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bar"
+        android:background="?android:attr/windowBackground">
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/windowBackground"
+            android:id="@+id/tool_bar">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/left">
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/search"
+                        android:src="@drawable/ic_search"/>
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/back"
+                        android:visibility="gone"
+                        android:src="@drawable/ic_back"/>
+                </LinearLayout>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/left"
+                    android:id="@+id/search_bar"
+                    android:padding="5dp"
+                    android:background="@android:color/transparent"
+                    android:hint="Search..."/>
+
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_below="@id/bar"
+        android:layout_marginBottom="55dp"
+        android:id="@+id/recycle_view_search_result"/>
+
+
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_below="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+   <RelativeLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical">
+
+           <android.support.v7.widget.RecyclerView
+               android:id="@+id/recycle_view_story"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_margin="5dp" />
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal">
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Trending"
+                   android:layout_below="@id/bar"
+                   android:id="@+id/joinText"
+                   android:textColor="@color/colorBlack"
+                   android:textSize="17sp"
+                   android:padding="8dp"
+                   android:textStyle="bold" />
+               <ImageView
+                   android:layout_width="22dp"
+                   android:layout_height="22dp"
+                   android:layout_gravity="center"
+                   android:src="@drawable/fire"/>
+           </LinearLayout>
+           <android.support.v7.widget.RecyclerView
+               android:id="@+id/recyclerView_recent_join"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginBottom="55dp" />
+
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center"
+               android:layout_marginTop="20dp"
+               android:layout_centerHorizontal="true"
+               android:layout_centerVertical="true"
+               android:orientation="vertical">
+               <ImageView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                   android:src="@drawable/noentry"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                   android:layout_marginTop="10dp"
+                   android:textColor="@color/colorBlack"
+                   android:textSize="17sp"
+                   android:text="No trending post"/>
+           </LinearLayout>
+
+       </LinearLayout>
+
+
+   </RelativeLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_below="@id/joinText"-->
+    <!--android:layout_marginBottom="55dp"-->
+    <!--android:id="@+id/recyclerView_recent_join"-->
+    <!--android:layout_height="wrap_content"/>-->
+
+
+</RelativeLayout>

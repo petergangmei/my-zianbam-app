@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zianbam.yourcommunity">
+
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_custom_icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_custom_icon_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".ReferedmeActivity"></activity>
+        <activity android:name=".ImagePickerActivity" />
+        <activity android:name=".CropSelectedimgActivity" />
+        <activity android:name=".RewardedVideoActivity" />
+        <activity android:name=".ShopActivity" />
+        <activity android:name=".CheckOutProfileActivity" />
+        <activity android:name=".SetupPrefereceActivity" />
+        <activity android:name=".DeleteActivity" />
+        <activity android:name=".MessageContainerActivity" />
+        <activity android:name=".MessageActivity" />
+        <activity android:name=".StoryViewsActivity" />
+        <activity android:name=".FollowersActivity" />
+        <activity android:name=".StoryActivity" />
+        <activity android:name=".AddStoryActivity" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2148730556114390~4320451757" />
+
+        <activity android:name=".SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter android:label="@string/app_name">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "example://gizmos” -->
+                <data
+                    android:host="deeplink"
+                    android:scheme="app" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity android:name=".StartActivity" />
+        <activity android:name=".AccountSetupActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".UpdateProfilePictureActivity" />
+        <activity android:name=".UpdateProfileActivity" />
+        <activity android:name=".CreatePostActivity" />
+        <activity android:name=".CommentsActivity" /> <!-- uCrop cropping activity -->
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait" /> <!-- cache directory file provider paths -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <service
+            android:name=".Notifications.MyFirebaseIdService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".Notifications.MyFirebaseMessaging"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".InfoActivity" />
+        <activity android:name=".FeaturePictureActivity" />
+        <activity android:name=".UpdateAvailableActivity" />
+    </application>
+
+</manifest>

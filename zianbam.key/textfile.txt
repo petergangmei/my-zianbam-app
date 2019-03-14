@@ -1,0 +1,7 @@
+hangouts.jks
+aliace :- key()
+12345678z
+
+zianbamcommunity.jks
+alias: key0
+12345678z

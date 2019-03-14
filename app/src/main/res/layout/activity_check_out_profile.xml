@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CheckOutProfileActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/bar"
+        android:background="?android:attr/windowBackground">
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tool_bar"
+            android:background="?android:attr/windowBackground">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="18sp"
+                    android:id="@+id/matchOut_toolbar"
+                    android:textStyle="bold"/>
+
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_below="@id/bar">
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:gravity="center"
+               android:layout_marginTop="40dp"
+               android:id="@+id/contain"
+               >
+
+               <de.hdodenhof.circleimageview.CircleImageView
+                   android:layout_width="80dp"
+                   android:layout_height="80dp"
+                   android:id="@+id/image_profile1"
+                   android:layout_marginRight="10dp"
+                   android:src="@drawable/image_placeholder"/>
+
+               <de.hdodenhof.circleimageview.CircleImageView
+                   android:layout_width="80dp"
+                   android:layout_height="80dp"
+                   android:layout_marginLeft="10dp"
+                   android:id="@+id/image_profile2"
+                   android:src="@drawable/image_placeholder"/>
+
+           </LinearLayout>
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/contain"
+               android:layout_centerInParent="true"
+               android:padding="10dp">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:padding="10dp"
+                   android:orientation="vertical">
+
+                   <ProgressBar
+                       android:id="@+id/progress_circular"
+                       android:indeterminateTint="#000"
+                       android:layout_width="30dp"
+                       android:outlineAmbientShadowColor="#fff"
+                       android:outlineSpotShadowColor="#000"
+                       android:layout_gravity="center"
+                       android:layout_marginBottom="20dp"
+                       android:layout_height="30dp"/>
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textSize="25sp"
+                       android:textStyle="bold"
+                       android:id="@+id/percent"
+                       android:visibility="gone"
+                       android:layout_marginBottom="20dp"
+                       android:layout_gravity="center" />
+
+                   <!--question1-->
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="@string/question1"
+                       android:gravity="center"
+                       android:visibility="gone"
+                       android:id="@+id/a1"/>
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:id="@+id/q1"
+                       android:textStyle="bold"
+                       android:textSize="18sp"
+                       android:gravity="center"
+                       android:tag="qeustion"
+                       android:visibility="gone"
+                       android:text="Question 1"/>
+
+
+                   <!--question2-->
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="@string/question2"
+                       android:gravity="center"
+                       android:visibility="gone"
+                       android:layout_marginTop="10dp"
+                       android:id="@+id/a2"/>
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:id="@+id/q2"
+                       android:textStyle="bold"
+                       android:textSize="18sp"
+                       android:visibility="gone"
+                       android:gravity="center"
+                       android:text="Question 1"/>
+
+
+                   <!--question3-->
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="@string/question3"
+                       android:gravity="center"
+                       android:visibility="gone"
+                       android:layout_marginTop="10dp"
+                       android:id="@+id/a3"/>
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:id="@+id/q3"
+                       android:textStyle="bold"
+                       android:textSize="18sp"
+                       android:visibility="gone"
+                       android:gravity="center"
+                       android:text="Question 1"/>
+
+
+
+                   <!--question4-->
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="@string/question4"
+                       android:gravity="center"
+                       android:visibility="gone"
+                       android:layout_marginTop="10dp"
+                       android:id="@+id/a4"/>
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:id="@+id/q4"
+                       android:textStyle="bold"
+                       android:textSize="18sp"
+                       android:gravity="center"
+                       android:visibility="gone"
+                       android:text="Question 1"/>
+
+                   <!--question5-->
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="@string/question5"
+                       android:gravity="center"
+                       android:visibility="gone"
+                       android:layout_marginTop="10dp"
+                       android:id="@+id/a5"/>
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:id="@+id/q5"
+                       android:textStyle="bold"
+                       android:textSize="18sp"
+                       android:gravity="center"
+                       android:visibility="gone"
+                       android:text="Question 1"/>
+
+                   <!--question6-->
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="@string/question6"
+                       android:gravity="center"
+                       android:visibility="gone"
+                       android:layout_marginTop="10dp"
+                       android:id="@+id/a6"/>
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:id="@+id/q6"
+                       android:textStyle="bold"
+                       android:textSize="18sp"
+                       android:gravity="center"
+                       android:visibility="gone"
+                       android:text="Question 1"/>
+
+                   <!--question7-->
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="@string/question7"
+                       android:gravity="center"
+                       android:visibility="gone"
+                       android:layout_marginTop="10dp"
+                       android:id="@+id/a7"/>
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:id="@+id/q7"
+                       android:textStyle="bold"
+                       android:textSize="18sp"
+                       android:visibility="gone"
+                       android:gravity="center"
+                       android:text="Question 1"/>
+
+                   <!--question8-->
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="@string/question8"
+                       android:gravity="center"
+                       android:visibility="gone"
+                       android:layout_marginTop="10dp"
+                       android:id="@+id/a8"/>
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:id="@+id/q8"
+                       android:textStyle="bold"
+                       android:textSize="18sp"
+                       android:gravity="center"
+                       android:visibility="gone"
+                       android:text="Question 1"/>
+
+                   <!--question9-->
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="@string/question9"
+                       android:gravity="center"
+                       android:visibility="gone"
+                       android:layout_marginTop="10dp"
+                       android:id="@+id/a9"/>
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:id="@+id/q9"
+                       android:textStyle="bold"
+                       android:textSize="18sp"
+                       android:visibility="gone"
+                       android:gravity="center"
+                       android:text="Question 1"/>
+
+                   <!--question10-->
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="@string/question10"
+                       android:gravity="center"
+                       android:visibility="gone"
+                       android:layout_marginTop="10dp"
+                       android:id="@+id/a10"/>
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:id="@+id/q10"
+                       android:textStyle="bold"
+                       android:textSize="18sp"
+                       android:gravity="center"
+                       android:visibility="gone"
+                       android:text="Question 1"/>
+
+               </LinearLayout>
+
+
+           </RelativeLayout>
+       </RelativeLayout>
+   </ScrollView>
+
+</RelativeLayout>

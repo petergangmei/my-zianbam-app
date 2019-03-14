@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".Fragment.HomeFragment">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/bar"
+        android:background="?android:attr/windowBackground">
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-15dp"
+            android:background="@color/colorPrimary">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/create_post"
+                android:background="@drawable/textlines"
+                android:padding="5dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_create_post"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="9sp"
+                        android:text=" New "/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="9sp"
+                        android:text=" Post "/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <ImageView
+                   android:id="@+id/storyAdd"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerVertical="true"
+                   android:layout_marginLeft="8dp"
+                   android:src="@drawable/ic_camera" />
+
+
+               <ImageView
+                   android:layout_width="100dp"
+                   android:layout_height="40dp"
+                   android:text="Zianbam"
+                    android:layout_centerHorizontal="true"
+                   android:src="@drawable/zianbamtext_logo"
+                   android:textStyle="bold"/>
+
+               <ImageView
+                   android:id="@+id/inbox"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentEnd="true"
+                   android:layout_alignParentRight="true"
+                   android:layout_centerVertical="true"
+                   android:layout_marginRight="8dp"
+                   android:src="@drawable/ic_mail_white" />
+           </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+    
+    <android.support.v4.widget.NestedScrollView
+        android:layout_below="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycle_view_story"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" />
+
+            <Spinner
+                android:id="@+id/spinner1"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:entries="@array/postype"
+                android:padding="5dp"
+                android:layout_gravity="end"
+                android:prompt="@string/postype_promp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/toolfeedlayout"
+                android:visibility="gone"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="end"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="60dp"
+                    android:src="@drawable/curvearrow"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="70dp"
+                    android:layout_gravity="end"
+                    android:text="Toggle feed"/>
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycle_view_post"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="55dp" />
+
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="30dp"
+               android:id="@+id/notpostLayout"
+               android:padding="10dp"
+               android:visibility="gone"
+               android:orientation="vertical">
+               <ImageView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/noentry"
+                   android:id="@+id/noentry"
+                   android:layout_gravity="center"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="No post to display!"
+                   android:textColor="@color/colorBlack"
+                   android:layout_gravity="center"
+                   android:textStyle="bold"
+                   android:layout_marginTop="5dp"
+                   android:textSize="18sp"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                    android:paddingRight="30dp"
+                   android:paddingLeft="30dp"
+                   android:gravity="center"
+                   android:text="Posts shared by those who are in your following list will be displayed here."/>
+
+           </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center">
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:indeterminateTint="#000"
+            android:layout_width="30dp"
+            android:outlineAmbientShadowColor="#fff"
+            android:outlineSpotShadowColor="#000"
+            android:layout_height="30dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loadingtext"
+            android:textSize="10sp"
+            android:text="Loading.." />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/prograssing"
+        android:indeterminateTint="@color/colorPrimaryDark"
+        android:layout_width="25dp"
+        android:outlineAmbientShadowColor="#fff"
+        android:outlineSpotShadowColor="#000"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="45dp"
+        android:visibility="gone"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

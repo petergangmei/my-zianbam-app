@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RewardedVideoActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
+        android:id="@+id/bar">
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/windowBackground">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_close"
+                    android:id="@+id/close"/>
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Coins Shop"-->
+                    <!--android:textSize="18sp"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:textColor="@color/colorBlack"-->
+                    <!--android:layout_centerHorizontal="true"/>-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/clickVIP"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/medal"
+                        android:layout_marginRight="5dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="VIP"
+                        android:id="@+id/vip"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold"
+                        />
+                </LinearLayout>
+
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/bar"
+    android:id="@+id/scoll">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--body1-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="50dp"
+            android:orientation="vertical"
+            android:id="@+id/body1">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/lay">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/lay1"
+                        android:gravity="center"
+                        android:layout_marginTop="150dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold"
+                            android:id="@+id/yourZcoins"
+                            android:layout_marginRight="5dp"
+                            android:textSize="50dp"/>
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="2dp"
+                            android:src="@drawable/dollar_coin_stack"
+                            />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/lay2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/lay1"
+                        android:layout_marginTop="0dp"
+                        android:gravity="center"
+                        android:text="Zcoins"
+                        android:textSize="25sp"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/lay2"
+                        android:visibility="gone"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:id="@+id/lay3">
+                        <Button
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
+                            android:text="5 Zcoins"
+                            android:background="@color/bottonColor"
+                            android:textAllCaps="false"
+                            android:id="@+id/op1"
+                            android:layout_marginRight="8dp"/>
+
+                        <Button
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
+                            android:text="10 Zcoins"
+                            android:background="@color/bottonColor"
+                            android:textAllCaps="false"
+                            android:id="@+id/op2"
+                            android:layout_marginRight="8dp"/>
+
+                        <Button
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
+                            android:text="60 Zcoins"
+                            android:background="@color/bottonColor"
+                            android:textAllCaps="false"
+                            android:id="@+id/op3"
+                            android:layout_marginRight="8dp"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/lay3"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
+                        android:id="@+id/lay4">
+                        <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="20dp"
+                            android:text="Rs. 5 "
+                            android:gravity="center"
+                            android:textAllCaps="false"
+                            android:layout_marginRight="8dp"/>
+
+                        <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="20dp"
+                            android:text="Rs. 10 "
+                            android:gravity="center"
+                            android:textAllCaps="false"
+                            android:layout_marginRight="8dp"/>
+
+                        <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="20dp"
+                            android:text="Rs. 50 "
+                            android:gravity="center"
+                            android:textAllCaps="false"
+                            android:layout_marginRight="8dp"/>
+
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/play_rewardvideo"
+                        android:onClick="playrewardvideo"
+                        android:src="@drawable/playvideo"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/play_rewardvideo"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/watchvideoTEXT"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Watch Video"
+                            android:gravity="center"
+                            android:id="@+id/watchVideoText"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="15sp" />
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginLeft="5dp"
+                            android:id="@+id/checked"
+                            android:visibility="gone"
+                            android:src="@drawable/checked"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_below="@+id/watchvideoTEXT">
+                        <ProgressBar
+                            android:id="@+id/pc"
+                            android:indeterminateTint="#000"
+                            android:layout_width="20dp"
+                            android:outlineAmbientShadowColor="#fff"
+                            android:outlineSpotShadowColor="#000"
+                            android:layout_marginTop="10dp"
+                            android:layout_height="20dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/rewardedVideoReady"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
+                            android:text="[ Searching Ads Video ]"/>
+
+                        <TextView
+                            android:layout_below="@id/rewardedVideoReady"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="italic"
+                            android:text="Earn Zcoins by watching ads video!"/>
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/mlog"
+                        android:text="Preparing ads"
+                        android:visibility="gone"
+                        android:layout_marginTop="10dp"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <!--//body2-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/body1"
+            android:layout_marginTop="350dp"
+            android:id="@+id/body2">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="180dp"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VIP Batche"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/medal"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Subscribe"
+                    android:enabled="false"
+                    android:id="@+id/subscribeBtn"
+                    android:background="@color/bottonColor"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/subscribeduntill"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="italic"
+                    android:textSize="12sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="50dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="17sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Benefits"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="* Removed Interstitial Ads."/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="* Refill Energy faster."/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="* And more things... "/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="30 days subscription for 200 Zcoins"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>
+
+
+
+</RelativeLayout>

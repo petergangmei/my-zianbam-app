@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_marginBottom="5dp">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:id="@+id/image_profile"
+        android:src="@mipmap/ic_launcher"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/image_profile"
+        android:background="@drawable/background_left"
+        android:id="@+id/body"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/show_message"
+            android:textSize="15sp"
+            android:paddingTop="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="4dp"
+            android:text=""/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/time"
+            android:text=""
+            android:paddingLeft="8dp"
+            android:paddingRight="3dp"
+            android:paddingBottom="2dp"
+            android:textColor="#888888"
+            android:textSize="10sp"
+            android:layout_below="@id/show_message"
+            />
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/ic_icon"
+            android:visibility="gone"
+            android:layout_toRightOf="@id/show_message"
+            android:src="@drawable/ic_notinterested"/>
+    </RelativeLayout>
+</RelativeLayout>

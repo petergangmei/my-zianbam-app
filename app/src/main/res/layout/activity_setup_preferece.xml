@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SetupPrefereceActivity">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bar"
+        android:background="?android:attr/windowBackground">
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tool_bar"
+            android:background="?android:attr/windowBackground">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Set prefereces"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    //intro
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/introLayout"
+            android:tag="intro"
+            android:layout_centerVertical="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:src="@drawable/dossier"
+                android:id="@+id/image"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_below="@id/image"
+                android:padding="5dp"
+                android:id="@+id/text"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:text="--intro--"/>
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/text"
+                android:id="@+id/ans1Layout"
+                android:gravity="center">
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:background="@color/bottonColor"
+                    android:text="choice 1"
+                    android:tag="choice 1"
+                    android:id="@+id/ans1"
+                    android:onClick="prefClick"
+                    android:visibility="gone"
+                    android:textAllCaps="false"/>
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:background="@color/bottonColor"
+                    android:visibility="gone"
+                    android:text="Choice 2"
+                    android:id="@+id/ans2"
+                    android:onClick="prefClick"
+                    android:layout_marginLeft="5dp"
+                    android:textAllCaps="false"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ans1Layout"
+                android:id="@+id/ans2Layout"
+                android:gravity="center"
+                android:layout_marginTop="5dp">
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:background="@color/bottonColor"
+                    android:visibility="gone"
+                    android:text="choice 3"
+                    android:tag="choice 3"
+                    android:id="@+id/ans3"
+                    android:onClick="prefClick"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:background="@color/bottonColor"
+                    android:visibility="gone"
+                    android:text="choice 4"
+                    android:tag="choice 4"
+                    android:id="@+id/ans4"
+                    android:onClick="prefClick"
+                    android:layout_marginLeft="5dp"
+                    android:textAllCaps="false"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ans2Layout"
+                android:gravity="center"
+                android:layout_marginTop="5dp">
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:background="@color/bottonColor"
+                    android:visibility="gone"
+                    android:text="choice 5"
+                    android:tag="choice 5"
+                    android:id="@+id/ans5"
+                    android:onClick="prefClick"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:visibility="gone"
+                    android:background="@color/bottonColor"
+                    android:text="choice 6"
+                    android:tag="choice 6"
+                    android:id="@+id/ans6"
+                    android:onClick="prefClick"
+                    android:layout_marginLeft="5dp"
+                    android:textAllCaps="false"/>
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    <ProgressBar
+        android:id="@+id/pb"
+        android:indeterminateTint="#000"
+        android:layout_width="30dp"
+        android:layout_marginBottom="5dp"
+        android:outlineAmbientShadowColor="#fff"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:outlineSpotShadowColor="#000"
+        android:visibility="gone"
+        android:layout_height="30dp"/>
+
+
+    //question1
+
+
+</RelativeLayout>
