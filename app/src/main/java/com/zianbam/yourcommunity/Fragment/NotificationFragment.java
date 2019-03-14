@@ -62,13 +62,13 @@ public class NotificationFragment extends Fragment {
         return v;
     }
 
-    @Override
-    public void onResume() {
-
-        notificationsList.clear();
-        readNotification();
-        super.onResume();
-    }
+//    @Override
+//    public void onResume() {
+//
+//        notificationsList.clear();
+//        readNotification();
+//        super.onResume();
+//    }
 
     private void readNotification() {
 
@@ -84,12 +84,22 @@ public class NotificationFragment extends Fragment {
                if (dataSnapshot.exists()){
                    for (DataSnapshot snapshot:dataSnapshot.getChildren()){
                        Notification notification = snapshot.getValue(Notification.class);
-                       notificationsList.add(notification);
-                     reference =  FirebaseDatabase.getInstance().getReference("Notifications").child(firebaseUser.getUid()).child(notification.getNotificationid());
-                       HashMap<String, Object> hashMap = new HashMap<>();
-                       hashMap.put("isseen", "true");
-                       reference.updateChildren(hashMap);
 
+                       reference =  FirebaseDatabase.getInstance().getReference("Notifications").child(firebaseUser.getUid()).child(notification.getNotificationid());
+                       reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                           @Override
+                           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                               if (dataSnapshot.exists()){
+                                   HashMap<String, Object> hashMap = new HashMap<>();
+                                   hashMap.put("isseen", "true");
+                                   reference.updateChildren(hashMap);
+                               }
+                           }
+                           @Override
+                           public void onCancelled(@NonNull DatabaseError databaseError) {
+                           }
+                       });
+                       notificationsList.add(notification);
                    }
                    Collections.reverse(notificationsList);
                    notificationAdapter.notifyDataSetChanged();

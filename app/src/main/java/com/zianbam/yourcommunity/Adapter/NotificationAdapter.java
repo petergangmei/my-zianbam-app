@@ -111,7 +111,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                if (dataSnapshot.exists()){
                    Post post = dataSnapshot.getValue(Post.class);
-                   if (post.getType().equals("feature_photo")){
+                   if (post.getType().equals("photo_post")){
                        viewholder.post_image.setVisibility(View.VISIBLE);
                        getPostImage(viewholder.post_image, notification.getPostid());
                    }else if (post.getType().equals("text_post")){
@@ -130,7 +130,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                if (dataSnapshot.exists()){
                                    Post p = dataSnapshot.getValue(Post.class);
-                                   viewholder.post_text.setText(" ' "+ p.getPost_text()+" ' ");
+                                   viewholder.post_text.setText(" [ "+ p.getPost_text()+" ] ");
                                }
 
                            }
@@ -156,6 +156,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
           viewholder.post_image.setVisibility(View.GONE);
           viewholder.followbackBtn.setVisibility(View.VISIBLE);
           final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
           viewholder.followbackBtn.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View view) {

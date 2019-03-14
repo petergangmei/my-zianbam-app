@@ -35,6 +35,7 @@ import com.zianbam.yourcommunity.CommentsActivity;
 import com.zianbam.yourcommunity.CreatePostActivity;
 import com.zianbam.yourcommunity.Fragment.APIService;
 import com.zianbam.yourcommunity.GetTimeAgo;
+import com.zianbam.yourcommunity.Model.Notification;
 import com.zianbam.yourcommunity.Model.Post;
 import com.zianbam.yourcommunity.Model.User;
 import com.zianbam.yourcommunity.Notifications.Client;
@@ -194,13 +195,13 @@ public class PostdetailAdapter extends RecyclerView.Adapter<PostdetailAdapter.Vi
                     @Override
                     public void onClick(View view) {
 //                        if (!post.getPublisher().equals(firebaseUser.getUid())){
-                            sendCommentNotification(post.getPublisher(), user.getUsername(),  viewHolder.comment_text.getText().toString());
+//                            sendCommentNotification(post.getPublisher(), user.getUsername(),  viewHolder.comment_text.getText().toString());
 //                        }
                         viewHolder.comment_text.setText("");
                         viewHolder.comment_text.clearFocus();
                     }
                 });
-
+                //display
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts").child(post.getPostid());
                 ref.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -236,12 +237,13 @@ public class PostdetailAdapter extends RecyclerView.Adapter<PostdetailAdapter.Vi
                                         mContext.startActivity(intent);
                                         return true;
                                     case R.id.delete:
+
+                                        removeNotificationItem(post.getPostid());
                                         FirebaseDatabase.getInstance().getReference("Posts")
                                                 .child(post.getPostid()).removeValue()
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
-                                                        Toast.makeText(mContext, "Deleted!", Toast.LENGTH_SHORT).show();
                                                     }
                                                 });
                                         return true;
@@ -303,7 +305,6 @@ public class PostdetailAdapter extends RecyclerView.Adapter<PostdetailAdapter.Vi
                 viewHolder.like.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
                         if (viewHolder.like.getTag().toString().equals("like")){
                             like(post.getPublisher(), post.getPostid(), post.getPost_text(), post.getType());
                         }
@@ -322,6 +323,86 @@ public class PostdetailAdapter extends RecyclerView.Adapter<PostdetailAdapter.Vi
 //                    viewHolder.send_comment.setVisibility(View.GONE);
 //                }
 //            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void removeNotificationItem(final String postid) {
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Notifications").child(firebaseUser.getUid());
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+                        final String key = snapshot.getKey();
+                        DatabaseReference refa = FirebaseDatabase.getInstance().getReference("Notifications").child(firebaseUser.getUid()).child(key);
+                        refa.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()){
+                                    Notification n = dataSnapshot.getValue(Notification.class);
+                                    if (n.getPostid().equals(postid)){
+                                        FirebaseDatabase.getInstance().getReference("Notifications").child(firebaseUser.getUid()).child(key)
+                                                .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                Toast.makeText(mContext, "Deleted!", Toast.LENGTH_SHORT).show();
+
+                                            }
+                                        });
+                                        Log.d("tag", "exactid: "+key);
+                                    }else {
+                                        Toast.makeText(mContext, "no exact match", Toast.LENGTH_SHORT).show();
+                                    }
+                                }else {
+                                    Log.d("tag", "Lodingids: "+key +"postid "+ postid);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        //removecomment
+        final DatabaseReference r = FirebaseDatabase.getInstance().getReference("Comments").child(postid);
+        r.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    r.removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        //remove likes
+        final DatabaseReference e = FirebaseDatabase.getInstance().getReference("Likes").child(postid);
+        e.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    e.removeValue();
+                }
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -370,8 +451,6 @@ public class PostdetailAdapter extends RecyclerView.Adapter<PostdetailAdapter.Vi
                 }else if (dataSnapshot.getChildrenCount() == 1){
                     comments.setVisibility(View.VISIBLE);
                     comments.setText( dataSnapshot.getChildrenCount() + " Comment");
-
-
 
                 }else {
                     comments.setVisibility(View.VISIBLE);

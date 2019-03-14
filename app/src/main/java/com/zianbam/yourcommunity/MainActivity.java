@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference reference, ref;
     List<String> notificationlist;
     BottomNavigationView bottomNavigationView;
-    private  String versonCode = "1.9";
+    private static String versonCode = "1.10";
     private Menu menu;
     private static int SPLAST_TIME_OUT = 2000;
     APIService apiService;
@@ -80,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
+
+//        startActivity(new Intent(getApplicationContext(), ReferedmeActivity.class));
+
         checkPref();
         checkUpdates();
         rechargeEnergy();

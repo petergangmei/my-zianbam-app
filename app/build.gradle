@@ -7,8 +7,8 @@ android {
         applicationId "com.zianbam.yourcommunity"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 9
-        versionName "1.09"
+        versionCode 10
+        versionName "1.10"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

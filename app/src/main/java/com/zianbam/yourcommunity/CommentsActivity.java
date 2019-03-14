@@ -216,7 +216,9 @@ public class CommentsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user1 = dataSnapshot.getValue(User.class);
                 if (notify){
-                    sendCommentNotification(publisherid, user1.getUsername(), msg1);
+                    if (!publisherid.equals(firebaseUser.getUid())){
+                        sendCommentNotification(publisherid, user1.getUsername(), msg1);
+                    }
                 }
                 notify = false;
             }

@@ -14,7 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +47,7 @@ public class SearchFragment extends Fragment {
     private List<User> mUsers;
     DatabaseReference databaseReference;
     EditText search_bar;
+    ImageView trendingfire;
     ImageButton search, back;
 
     private RecyclerView recyclerView_recent_join;
@@ -59,6 +61,8 @@ public class SearchFragment extends Fragment {
     private ArrayList<String> followingList;
 
     RelativeLayout layout;
+    LinearLayout notrendinglayout;
+
     TextView joinText;
 
 
@@ -72,7 +76,8 @@ public class SearchFragment extends Fragment {
         search = v.findViewById(R.id.search);
         back = v.findViewById(R.id.back);
         joinText = v.findViewById(R.id.joinText);
-
+        notrendinglayout = v.findViewById(R.id.notrendinglayout);
+        trendingfire = v.findViewById(R.id.trendingfire);
 
 
 
@@ -117,6 +122,9 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                notrendinglayout.setVisibility(View.VISIBLE);
+                trendingfire.setVisibility(View.VISIBLE);
+
                 search_bar.setText("");
                 search_bar.clearFocus();
                 back.setVisibility(View.GONE);
@@ -136,6 +144,9 @@ public class SearchFragment extends Fragment {
             }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                notrendinglayout.setVisibility(View.GONE);
+                trendingfire.setVisibility(View.GONE);
+
             }
             @Override
             public void afterTextChanged(Editable editable) {
@@ -214,6 +225,9 @@ public class SearchFragment extends Fragment {
                 }
             });
         }else {
+            notrendinglayout.setVisibility(View.VISIBLE);
+            trendingfire.setVisibility(View.VISIBLE);
+
             recyclerView_story.setVisibility(View.VISIBLE);
             search.setVisibility(View.GONE);
             back.setVisibility(View.VISIBLE);

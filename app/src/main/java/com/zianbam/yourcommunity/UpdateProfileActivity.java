@@ -1,9 +1,8 @@
 package com.zianbam.yourcommunity;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -54,7 +53,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
 
                 reference = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getUid());
                 HashMap<String, Object> hashMap = new HashMap<>();
