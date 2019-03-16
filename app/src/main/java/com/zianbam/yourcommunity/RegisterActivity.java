@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -27,6 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseDatabase firebaseDatabase;
     private ProgressBar progressBar;
+    FirebaseUser firebaseUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,8 @@ public class RegisterActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         confirm_password = findViewById(R.id.confirm_password);
         progressBar = findViewById(R.id.progress_circular);
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         toolbar.setTitle("Create New Account");
@@ -70,15 +74,21 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
+
+
                                 DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getUid());
                                 HashMap<String, Object> hashMap = new HashMap<>();
                                 hashMap.put("email", email.getText().toString());
                                 hashMap.put("id", mAuth.getUid());
-
                                 firebaseDatabase.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        startActivity(new Intent(getApplicationContext(), AccountSetupActivity.class));
+
+//                                        startActivity(new Intent(getApplicationContext(), AccountSetupActivity.class));
+                                        Intent intent = new Intent(getApplicationContext(), AccountSetupActivity.class);
+                                        intent.putExtra("from", "register");
+                                        startActivity(intent);
+                                        finish();
                                         progressBar.setVisibility(View.INVISIBLE);
                                     }
                                 });

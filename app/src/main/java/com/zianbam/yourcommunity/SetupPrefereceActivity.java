@@ -1,5 +1,6 @@
 package com.zianbam.yourcommunity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -34,7 +36,10 @@ public class SetupPrefereceActivity extends AppCompatActivity {
     TextView text;
     FirebaseUser firebaseUser;
     ProgressBar progress_circular;
+    String myintent, referred, rcode, from;
+
     private String intro, question1, question2, question3, question4, question5, question6, question7, question8, question9, question10;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +55,11 @@ public class SetupPrefereceActivity extends AppCompatActivity {
         ans6 = findViewById(R.id.ans6);
         progress_circular = findViewById(R.id.pb);
 
+        Intent intent = getIntent();
 
+        referred = intent.getStringExtra("referred");
+        rcode = intent.getStringExtra("code");
+        from = intent.getStringExtra("from");
 
 
         intro = "Pick up your preferece to easly find people who shared common interest";
@@ -72,21 +81,21 @@ public class SetupPrefereceActivity extends AppCompatActivity {
 
     }
 
-    public void prefClick(View view){
+    public void prefClick(View view) {
         String tag = view.getTag().toString();
-        switch (tag){
+        switch (tag) {
             case "start":
                 toQuestion1();
                 break;
-                //drinks
+            //drinks
             case "Coffee":
-                  addToDatabase("ans1");
+                addToDatabase("ans1");
                 break;
             case "Tea":
                 addToDatabase("ans2");
                 break;
 
-                //food
+            //food
             case "Veg":
                 addToDatabase("ans1");
                 break;
@@ -95,7 +104,7 @@ public class SetupPrefereceActivity extends AppCompatActivity {
                 addToDatabase("ans2");
                 break;
 
-                //transport
+            //transport
             case "Bike":
                 addToDatabase("ans1");
                 break;
@@ -104,7 +113,7 @@ public class SetupPrefereceActivity extends AppCompatActivity {
                 addToDatabase("ans2");
                 break;
 
-                //vacations
+            //vacations
             case "Summer":
                 addToDatabase("ans1");
                 break;
@@ -112,7 +121,7 @@ public class SetupPrefereceActivity extends AppCompatActivity {
             case "Winter":
                 addToDatabase("ans2");
                 break;
-                //pets
+            //pets
             case "Cat":
                 addToDatabase("ans1");
                 break;
@@ -126,7 +135,7 @@ public class SetupPrefereceActivity extends AppCompatActivity {
                 addToDatabase("ans4");
                 break;
 
-                //date in or out
+            //date in or out
             case "Stay in":
                 addToDatabase("ans1");
                 break;
@@ -134,7 +143,7 @@ public class SetupPrefereceActivity extends AppCompatActivity {
                 addToDatabase("ans2");
                 break;
 
-                //date a confident/shy
+            //date a confident/shy
             case "Confident":
                 addToDatabase("ans1");
                 break;
@@ -142,7 +151,7 @@ public class SetupPrefereceActivity extends AppCompatActivity {
                 addToDatabase("ans2");
                 break;
 
-                //relation ship section
+            //relation ship section
             case "Friends":
                 addToDatabase("ans1");
                 break;
@@ -156,7 +165,7 @@ public class SetupPrefereceActivity extends AppCompatActivity {
                 addToDatabase("ans4");
                 break;
 
-                //music section
+            //music section
 
             case "Jazz":
                 addToDatabase("ans1");
@@ -178,7 +187,7 @@ public class SetupPrefereceActivity extends AppCompatActivity {
                 addToDatabase("ans6");
                 break;
 
-                //movie section
+            //movie section
             case "Comedy":
                 addToDatabase("ans1");
                 break;
@@ -204,20 +213,72 @@ public class SetupPrefereceActivity extends AppCompatActivity {
 
         }
     }
-    private void updatedp(){
-        progress_circular.setVisibility(View.VISIBLE);
 
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("pref", "updated");
-        reference.updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                progress_circular.setVisibility(View.GONE);
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
+    private void updatedp() {
+        progress_circular.setVisibility(View.VISIBLE);
+        progress_circular.setVisibility(View.GONE);
+        if (referred.equals("yes")) {
+            reference = FirebaseDatabase.getInstance().getReference("Referralcodes").child(rcode);
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()){
+                        if (from == null){
+                            String coins = dataSnapshot.child("join").getValue().toString();
+                            int cn = Integer.parseInt(coins);
+                            ref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            HashMap<String, Object> hash = new HashMap<>();
+                            hash.put("referralcode", rcode);
+                            hash.put("referralclaim", "notclaim");
+                            hash.put("pref", "updated");
+                            hash.put("coins", cn);
+                            ref.updateChildren(hash);
+                        }
+                        else if (from.equals("register")){
+                            String coins = dataSnapshot.child("join").getValue().toString();
+                            int cn = Integer.parseInt(coins);
+                            ref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            HashMap<String, Object> hash = new HashMap<>();
+                            hash.put("referralcode", rcode);
+                            hash.put("referralclaim", "notclaim");
+                            hash.put("pref", "updated");
+                            hash.put("coins", cn);
+                            ref.updateChildren(hash);
+                            Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent1);
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+//            Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
+//            intent1.putExtra("status", "fromsetpref");
+//            startActivity(intent1);
+        } else if (referred.equals("no")) {
+            if (from == null) {
+                reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("pref", "updated");
+                reference.updateChildren(hashMap);
+            } else if (from.equals("main")) {
+
+                reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("pref", "updated");
+                reference.updateChildren(hashMap);
+                Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent1);
             }
-        });
+        }
+
+//                moveTaskToBack(true);
+
 
     }
     private void toExit(){
@@ -226,7 +287,7 @@ public class SetupPrefereceActivity extends AppCompatActivity {
         text.setTextColor(Color.BLACK);
         text.setTextSize(18);
         text.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
-        ans1.setText("Continue");
+        ans1.setText("Done");
         ans1.setTag("Continue");
         ans2.setVisibility(View.GONE);
         ans3.setVisibility(View.GONE);
@@ -601,4 +662,32 @@ public class SetupPrefereceActivity extends AppCompatActivity {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
+    @Override
+    public void onBackPressed() {
+        exitAppPermission();
+    }
+    private void exitAppPermission(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(SetupPrefereceActivity.this);
+        builder.setMessage("Do you really want to do this?");
+        builder.setTitle("Exit Zianbam");
+        builder.setCancelable(true);
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        builder.setPositiveButton("Yes, exit!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+                moveTaskToBack(true);
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
 }

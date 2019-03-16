@@ -1,12 +1,14 @@
 package com.zianbam.yourcommunity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -49,6 +51,9 @@ public class AccountSetupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account_setup);
 
         mAuth = FirebaseAuth.getInstance();
+
+        final Intent intent = getIntent();
+        final String myintent = intent.getStringExtra("from");
 
         radioGroup = findViewById(R.id.gender_radio);
         conBtn = findViewById(R.id.continueBtn);
@@ -112,6 +117,9 @@ public class AccountSetupActivity extends AppCompatActivity {
                 hashMap.put("subscription", 0);
                 hashMap.put("subtype", "false");
                 hashMap.put("pref", "none");
+                hashMap.put("referralcode", "null");
+                hashMap.put("referralclaim", "null");
+                hashMap.put("emailverify", "null");
                 hashMap.put("timestamp", System.currentTimeMillis());
                 hashMap.put("bio", "Hey! I am newbie. Let's be friend.");
                 hashMap.put("imageURL", "https://firebasestorage.googleapis.com/v0/b/zianbamhangouts.appspot.com/o/user_avatar.png?alt=media&token=b7e499f4-5727-4bd8-bffc-83a572317f07");
@@ -119,8 +127,13 @@ public class AccountSetupActivity extends AppCompatActivity {
                 databaseReference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        startActivity(new Intent(AccountSetupActivity.this, SetupPrefereceActivity.class));
-                        finish();
+                        startActivity(new Intent(AccountSetupActivity.this, ReferedmeActivity.class));
+                        Intent intent1 = new Intent(getApplicationContext(), ReferedmeActivity.class);
+                        intent1.putExtra("from", myintent);
+                        startActivity(intent1);
+
+
+
                     }
                 });
                 conBtn.setEnabled(false);
@@ -218,6 +231,25 @@ public class AccountSetupActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
-        moveTaskToBack(true);
+//        moveTaskToBack(true);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(AccountSetupActivity.this);
+        builder.setMessage("Do you really want to do this?");
+        builder.setTitle("Exit Zianbam");
+        builder.setCancelable(true);
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        builder.setPositiveButton("Yes, exit!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+                moveTaskToBack(true);
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

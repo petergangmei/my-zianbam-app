@@ -48,28 +48,52 @@
                     android:id="@+id/noBtn"
                     android:text="No"/>
             </LinearLayout>
-            <EditText
-                android:layout_width="150dp"
-                android:layout_height="40dp"
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:hint="referral code"
-                android:visibility="gone"
-                android:background="@drawable/textlines"
-                android:id="@+id/referralCode"/>
+                android:orientation="horizontal">
+                <EditText
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="referral code"
+                    android:text="Z-"
+                    android:inputType="number"
+                    android:paddingLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:maxLength="7"
+                    android:visibility="gone"
+                    android:background="@drawable/textlines"
+                    android:id="@+id/referralCode"/>
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:visibility="gone"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:outlineAmbientShadowColor="#fff"
+                    android:outlineSpotShadowColor="#000"
+                    android:indeterminateTint="#000"
+                    android:layout_weight="1" />
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="10dp"
-                android:visibility="gone"
                 android:gravity="center"
+                android:visibility="gone"
                 android:id="@+id/continueBtnLayout">
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/bottonColor"
                     android:id="@+id/ContinueBtn"
+                    android:tag="conti"
+                    android:enabled="false"
                     android:text="Continue"/>
                 <TextView
                     android:layout_width="wrap_content"

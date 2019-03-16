@@ -101,6 +101,7 @@ public class StartActivity extends AppCompatActivity {
         pd = new ProgressDialog(StartActivity.this);
         pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         pd.setMessage("Please wait...");
+        pd.setCancelable(false);
         pd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD4D9D0")));
         pd.setIndeterminate(false);
         pd.show();
@@ -153,8 +154,8 @@ public class StartActivity extends AppCompatActivity {
                                                startActivity(new Intent(StartActivity.this, MainActivity.class));
                                                finish();
                                            }else {
-                                               startActivity(new Intent(StartActivity.this, AccountSetupActivity.class));
-                                               finish();
+                                               startActivity(new Intent(getApplicationContext(), AccountSetupActivity.class));
+                                                finish();
                                            }
                                             }
 
@@ -192,6 +193,7 @@ public class StartActivity extends AppCompatActivity {
             pd = new ProgressDialog(StartActivity.this);
             pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             pd.setMessage("Please wait...");
+            pd.setCancelable(false);
             pd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD4D9D0")));
             pd.setIndeterminate(false);
             pd.show();

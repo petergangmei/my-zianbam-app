@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_custom_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ReferedmeActivity"></activity>
+        <activity android:name=".ReferraldetailActivity" />
+        <activity android:name=".ReferralActivity" />
+        <activity android:name=".ReferedmeActivity" />
         <activity android:name=".ImagePickerActivity" />
         <activity android:name=".CropSelectedimgActivity" />
         <activity android:name=".RewardedVideoActivity" />

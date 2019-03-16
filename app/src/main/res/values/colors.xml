@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark2">#02a5e7</color>
     <color name="colorPrimary">#f7ffcc00</color>
     <color name="colorPrimaryDark">#f7e7bd14</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#000</color>
     <color name="colorBackground">#fff</color>
     <color name="bottonColor">#d9eaea</color>
     <!--eef5fd-->
@@ -14,4 +14,5 @@
     <color name="background101">#FFF8F8</color>
 
     <color name="color1">#fafafa</color>
+    <color name="colorRed">#FF0000</color>
 </resources>

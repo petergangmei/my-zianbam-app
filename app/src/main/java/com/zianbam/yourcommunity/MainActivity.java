@@ -10,11 +10,11 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.Fade;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,10 +27,11 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -64,13 +65,15 @@ public class MainActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     Toolbar toolbar;
     FirebaseAuth mAuth;
-    DatabaseReference reference, ref;
+    FirebaseUser firebaseUser;
+    DatabaseReference reference, ref, db;
     List<String> notificationlist;
     BottomNavigationView bottomNavigationView;
-    private static String versonCode = "1.10";
+    private static String versonCode = "1.11";
     private Menu menu;
     private static int SPLAST_TIME_OUT = 2000;
     APIService apiService;
+     String status;
 
     private InterstitialAd interstitialAd;
 
@@ -80,17 +83,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-//        startActivity(new Intent(getApplicationContext(), ReferedmeActivity.class));
+        Intent intent = getIntent();
+        status = intent.getStringExtra("status");
 
+
+//                startActivity(new Intent(getApplicationContext(), ReferedmeActivity.class));
+//
+        checkifuserhavesetupprofile();
         checkPref();
         checkUpdates();
         rechargeEnergy();
         checkSubcription();
 
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                checkverifyemial();
+
+            }
+        },6000);
 
         mAuth = FirebaseAuth.getInstance();
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -107,21 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        reference = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.exists()){
-                    startActivity(new Intent(MainActivity.this, AccountSetupActivity.class));
-                    finish();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-
-        });
 
 
 
@@ -213,19 +216,177 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.home);
     }
 
-    private void checkSubcription() {
-        MobileAds.initialize(this, "ca-app-pub-2148730556114390~4320451757");
-        interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId("ca-app-pub-2148730556114390/2411408050");
-        interstitialAd.loadAd(new AdRequest.Builder().build());
+    private void checkverifyemial() {
+        
+        if (!firebaseUser.isEmailVerified()){
+            final Dialog dialog = new Dialog(MainActivity.this);
+            dialog.setContentView(R.layout.dialog_verifyemail);
+            dialog.show();
+            dialog.setCancelable(false);
+            Button btn = dialog.findViewById(R.id.btn);
 
-        interstitialAd.setAdListener(new AdListener(){
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            mAuth.signOut();
+                            mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        startActivity(new Intent(getApplicationContext(), StartActivity.class));
+                                        finish();
+                                    }
+
+                                }
+                            });
+                            Toast.makeText(MainActivity.this, "Verification mail sent!", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                    });
+                }
+            });
+
+
+        }else {
+            ref = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()){
+                        String verify = dataSnapshot.child("emailverify").getValue().toString();
+
+                        if (verify.equals("null")){
+                            final Dialog dialog = new Dialog(MainActivity.this);
+                            dialog.setContentView(R.layout.dialog_verifyemail);
+                            dialog.show();
+                            dialog.setCancelable(false);
+                            Button btn = dialog.findViewById(R.id.btn);
+                            TextView title = dialog.findViewById(R.id.title);
+                            TextView msg = dialog.findViewById(R.id.msg);
+                            title.setText("Email verifiid!");
+                            msg.setText("Your email has succesfully verified!");
+                            btn.setText("Continue");
+                            btn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+
+                            HashMap<String, Object> hashMap = new HashMap<>();
+                            hashMap.put("emailverify", "verified");
+                            ref.updateChildren(hashMap);
+
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+    }
+
+    private void checkifuserhavesetupprofile() {
+        reference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onAdLoaded() {
-                interstitialAd.show();
-                super.onAdLoaded();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.exists()){
+                    startActivity(new Intent(getApplicationContext(), AccountSetupActivity.class));
+                    finish();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+    }
+
+    private void checkforcoins() {
+
+        ref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+
+                        final User user = dataSnapshot.getValue(User.class);
+                    final  String mycoins = dataSnapshot.child("coins").getValue().toString();
+
+                    reference = FirebaseDatabase.getInstance().getReference("Referralcodes").child(user.getReferralcode());
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                if (user.getReferralclaim().equals("notclaim")) {
+
+                                    String coins = dataSnapshot.child("join").getValue().toString();
+
+                                    final Dialog dialog = new Dialog(MainActivity.this);
+                                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                    dialog.setContentView(R.layout.rewarded_dialog);
+                                    TextView r_zcoins = dialog.findViewById(R.id.r_zcoins);
+                                    TextView msg = dialog.findViewById(R.id.rewardsmsg);
+                                    r_zcoins.setText(coins + " Zcoins");
+                                    msg.setText("rewarded through your referral code!");
+                                    dialog.show();
+
+
+//                                    int nowcoins = Integer.parseInt(mycoins);
+//                                    int newcoins = nowcoins + 10;
+//
+                                    ref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                    HashMap<String, Object> hashMap = new HashMap<>();
+                                    hashMap.put("referralclaim", "claimed");
+                                    ref.updateChildren(hashMap);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                      new Handler().postDelayed(new Runnable() {
+                          @Override
+                          public void run() {
+
+                          }
+                      },6000);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void checkSubcription() {
+//        MobileAds.initialize(this, "ca-app-pub-2148730556114390~4320451757");
+//        interstitialAd = new InterstitialAd(this);
+//        interstitialAd.setAdUnitId("ca-app-pub-2148730556114390/2411408050");
+//        interstitialAd.loadAd(new AdRequest.Builder().build());
+//
+//        interstitialAd.setAdListener(new AdListener(){
+//            @Override
+//            public void onAdLoaded() {
+//                interstitialAd.show();
+//                super.onAdLoaded();
+//            }
+//        });
         ref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -281,7 +442,6 @@ public class MainActivity extends AppCompatActivity {
                         sendNotification(FirebaseAuth.getInstance().getCurrentUser().getUid(), user.getName(), "Message");
                     }
                 }else {
-                    Toast.makeText(MainActivity.this, "data does not exist!", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -300,8 +460,32 @@ public class MainActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()){
                     User user = dataSnapshot.getValue(User.class);
                     if (user.getPref().equals("none")){
-                        startActivity(new Intent(getApplicationContext(), SetupPrefereceActivity.class));
-                        finish();
+                        Intent intent = new Intent(getApplicationContext(), SetupPrefereceActivity.class);
+                        intent.putExtra("referred", "no");
+                        intent.putExtra("from", "main");
+                        intent.putExtra("code", "null");
+
+                        startActivity(intent);
+                    }else {
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (status == null){
+                                    checkforcoins();
+
+                                }else if(status.equals("fromsetpref")){
+                                    final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                    builder.setMessage("If you have entered referral code when you signup, Referral rewards will be added to your account when you open Zianbam app for second time!");
+                                    builder.setTitle("Notice");
+                                    builder.setCancelable(true);
+
+                                    AlertDialog alertDialog = builder.create();
+                                    alertDialog.show();
+                                }
+                            }
+                        },4000);
+
                     }
                 }
             }
@@ -450,6 +634,8 @@ public class MainActivity extends AppCompatActivity {
                                 public void onClick(View view) {
                                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.zianbam.yourcommunity"));
                                     startActivity(intent);
+                                    finish();
+                                    moveTaskToBack(true);
                                 }
                             });
                             dialog.show();

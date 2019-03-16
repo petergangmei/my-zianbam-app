@@ -261,6 +261,7 @@
             android:layout_height="35dp"
             android:layout_marginBottom="1dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
             android:id="@+id/opencamera"
             android:src="@drawable/ic_camera"/>
         <ImageView
@@ -268,6 +269,7 @@
             android:layout_height="35dp"
             android:id="@+id/opengellary"
             android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
             android:src="@drawable/ic_gallery_dark"/>
     </LinearLayout>
 

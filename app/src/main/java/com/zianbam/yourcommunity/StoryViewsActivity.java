@@ -1,9 +1,9 @@
 package com.zianbam.yourcommunity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,7 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-import com.zianbam.yourcommunity.Adapter.UserAdapter;
+import com.zianbam.yourcommunity.Adapter.UserAdapter2;
 import com.zianbam.yourcommunity.Model.Post;
 import com.zianbam.yourcommunity.Model.Story;
 import com.zianbam.yourcommunity.Model.User;
@@ -32,7 +32,7 @@ public class StoryViewsActivity extends AppCompatActivity {
     ImageButton close_btn;
     List<String> idList;
     private RecyclerView recyclerView;
-    private UserAdapter userAdapter;
+    private UserAdapter2 userAdapter;
     private List<User> userList;
     private ImageView story_image;
 
@@ -55,7 +55,7 @@ public class StoryViewsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         userList = new ArrayList<>();
         userList.clear();
-        userAdapter = new UserAdapter(this, userList);
+        userAdapter = new UserAdapter2(this, userList);
         recyclerView.setAdapter(userAdapter);
 
 

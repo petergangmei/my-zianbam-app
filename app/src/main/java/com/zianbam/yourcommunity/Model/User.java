@@ -9,14 +9,14 @@ public class User {
     private String location;
     private String gender;
     private String username;
-    private String pref;
+    private String pref, referralcode, referralclaim;
     private long energycharge;
     private long subscription, featurephoto;
 
     public User() {
     }
 
-    public User(String id, String name, String email, String imageURL, String bio, String location, String gender, String username, String pref, long energycharge, long subscription, long featurephoto) {
+    public User(String id, String name, String email, String imageURL, String bio, String location, String gender, String username, String pref, String referralcode, String referralclaim, long energycharge, long subscription, long featurephoto) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -26,33 +26,11 @@ public class User {
         this.gender = gender;
         this.username = username;
         this.pref = pref;
+        this.referralcode = referralcode;
+        this.referralclaim = referralclaim;
         this.energycharge = energycharge;
         this.subscription = subscription;
         this.featurephoto = featurephoto;
-    }
-
-    public long getFeaturephoto() {
-        return featurephoto;
-    }
-
-    public void setFeaturephoto(long featurephoto) {
-        this.featurephoto = featurephoto;
-    }
-
-    public long getSubscription() {
-        return subscription;
-    }
-
-    public void setSubscription(long subscription) {
-        this.subscription = subscription;
-    }
-
-    public long getEnergycharge() {
-        return energycharge;
-    }
-
-    public void setEnergycharge(long energycharge) {
-        this.energycharge = energycharge;
     }
 
     public String getId() {
@@ -125,5 +103,45 @@ public class User {
 
     public void setPref(String pref) {
         this.pref = pref;
+    }
+
+    public String getReferralcode() {
+        return referralcode;
+    }
+
+    public void setReferralcode(String referralcode) {
+        this.referralcode = referralcode;
+    }
+
+    public String getReferralclaim() {
+        return referralclaim;
+    }
+
+    public void setReferralclaim(String referralclaim) {
+        this.referralclaim = referralclaim;
+    }
+
+    public long getEnergycharge() {
+        return energycharge;
+    }
+
+    public void setEnergycharge(long energycharge) {
+        this.energycharge = energycharge;
+    }
+
+    public long getSubscription() {
+        return subscription;
+    }
+
+    public void setSubscription(long subscription) {
+        this.subscription = subscription;
+    }
+
+    public long getFeaturephoto() {
+        return featurephoto;
+    }
+
+    public void setFeaturephoto(long featurephoto) {
+        this.featurephoto = featurephoto;
     }
 }

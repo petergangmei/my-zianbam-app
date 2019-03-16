@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.zianbam.yourcommunity.InfoActivity;
 import com.zianbam.yourcommunity.R;
+import com.zianbam.yourcommunity.ReferralActivity;
 import com.zianbam.yourcommunity.StartActivity;
 import com.zianbam.yourcommunity.UpdateProfileActivity;
 import com.zianbam.yourcommunity.UpdateProfilePictureActivity;
@@ -26,7 +27,7 @@ import com.zianbam.yourcommunity.UpdateProfilePictureActivity;
 
 public class MenuFragment extends Fragment {
 
-  private TextView logOut,edit_profile, change_profilepic,account_setting;
+  private TextView logOut,edit_profile, change_profilepic,account_setting, referralActivty, informationactivty;
   FirebaseAuth mAuth;
   GoogleSignInClient mGoogleSignInClient;
 
@@ -39,6 +40,8 @@ public class MenuFragment extends Fragment {
     logOut = v.findViewById(R.id.logout);
     edit_profile = v.findViewById(R.id.edit_profile);
     change_profilepic = v.findViewById(R.id.change_imagePic);
+    referralActivty = v.findViewById(R.id.referalActivity);
+    informationactivty = v.findViewById(R.id.information);
 
     GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -49,29 +52,32 @@ public class MenuFragment extends Fragment {
 
     onLogOut();
     clickAcivity();
-    v.findViewById(R.id.information).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        startActivity(new Intent(getContext(), InfoActivity.class));
-      }
-    });
+
     return v;
   }
 
   private void clickAcivity() {
 
+    informationactivty.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) { startActivity(new Intent(getContext(), InfoActivity.class)); }});
+
+    referralActivty.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent intent = new Intent(getContext(), ReferralActivity.class);
+        startActivity(intent);
+      }
+    });
+
     edit_profile.setOnClickListener(new View.OnClickListener() {
       @Override
-      public void onClick(View view) {
-        startActivity(new Intent(getContext(),UpdateProfileActivity.class));
-      }
+      public void onClick(View view) { startActivity(new Intent(getContext(),UpdateProfileActivity.class)); }
     });
     change_profilepic.setOnClickListener(new View.OnClickListener() {
       @Override
-      public void onClick(View view) {
-        startActivity(new Intent(getContext(),UpdateProfilePictureActivity.class));
-      }
-    });
+      public void onClick(View view) { startActivity(new Intent(getContext(),UpdateProfilePictureActivity.class)); }});
+
   }
 
   private void onLogOut() {
@@ -88,7 +94,8 @@ public class MenuFragment extends Fragment {
               ((FragmentActivity)getActivity()).finish();
 
             } else {
-//                            Toast.makeText(getContext(), "LogOut failed", Toast.LENGTH_SHORT).show();
+              startActivity(new Intent(getContext(), StartActivity.class));
+              ((FragmentActivity)getActivity()).finish();
             }
 
           }

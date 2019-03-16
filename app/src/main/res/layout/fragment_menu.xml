@@ -65,6 +65,16 @@
             android:textSize="18sp"
             android:text="Informations"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textlines"
+            android:id="@+id/referalActivity"
+            android:padding="10dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:text="Referral Program"/>
+
 
     </LinearLayout>
     <LinearLayout

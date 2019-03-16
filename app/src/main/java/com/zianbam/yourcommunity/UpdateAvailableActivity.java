@@ -72,6 +72,10 @@ public class UpdateAvailableActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.zianbam.yourcommunity"));
                 startActivity(intent);
+                finish();
+                moveTaskToBack(true);
+
+
 
             }
         });
